@@ -1,11 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Testing Tiger Solutions</title>
+  <style>
+    :root { --bg: #ffffff; --text: #111111; --muted: #6b7280; --border: #e5e7eb; --shadow: 0 4px 14px rgba(0,0,0,.07); }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; color: var(--text); background: var(--bg); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .gradient-bg { position: fixed; inset: 0 0 auto 0; height: 150vh; pointer-events: none; z-index: 0; }
+    .gradient-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0)); }
+    header { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+    .hamburger { display: inline-flex; flex-direction: column; gap: 6px; padding: 8px; border: 0; background: transparent; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #000; transition: width .2s ease; }
+    .hamburger span:last-child { width: 16px; }
+    .hamburger:hover span:first-child { width: 28px; }
+    .hamburger:hover span:last-child { width: 24px; }
+    .cta-link { text-transform: uppercase; font-size: 14px; letter-spacing: .08em; text-decoration: none; color: inherit; border-bottom: 1px solid transparent; }
+    .cta-link:hover { border-color: #000; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.2); z-index: 30; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+    .overlay.open { opacity: 1; pointer-events: auto; }
+    .menu { position: fixed; left: 24px; top: 80px; z-index: 40; background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; transform: translateX(-12px); opacity: 0; transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s ease; }
+    .menu.open { transform: translateX(0); opacity: 1; }
+    .menu a { display: block; padding: 12px 20px; color: inherit; text-decoration: none; }
+    .menu a:hover { background: #fafafa; }
+    main { position: relative; z-index: 1; }
+    .hero { padding: 16px 0 0; }
+    .eyebrow { color: var(--muted); font-size: 24px; }
+    .title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin: 8px 0 0; }
+    @media (min-width: 768px) { .eyebrow { font-size: 28px; } .title { font-size: 40px; } }
+    .sub { margin-top: 24px; font-size: 20px; color: #374151; max-width: 42ch; line-height: 1.5; }
+    .btn-row { margin-top: 32px; display: flex; gap: 16px; }
+    .btn { appearance: none; border-radius: 16px; padding: 12px 20px; font-size: 16px; font-weight: 500; border: 1px solid #111; background: #fff; box-shadow: var(--shadow); text-decoration: none; color: #111; display: inline-flex; align-items: center; transition: transform .15s ease, box-shadow .2s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+    .btn.dark { background: #000; color: #fff; }
+    .section { padding: 24px 0 64px; }
+    .section .label { text-transform: uppercase; font-size: 12px; letter-spacing: .5em; color: #9ca3af; text-align: center; }
+    .section h2 { text-align: center; font-weight: 300; font-size: 40px; margin: 16px 0 0; }
+    .section h2 strong { font-weight: 700; }
+    @media (min-width: 768px) { .section h2 { font-size: 56px; } }
+    footer { border-top: 1px solid var(--border); padding: 40px 0; background: #fff; position: relative; z-index: 1; }
+    .grid { display: grid; gap: 24px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; align-items: center; } }
+    input, textarea { width: 100%; border: 1px solid #d1d5db; border-radius: 12px; padding: 12px 16px; font: inherit; }
+    textarea { min-height: 120px; resize: vertical; }
+    .copyright { text-align: center; color: #6b7280; font-size: 14px; margin-top: 24px; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .demo-page { min-height: 100vh; padding: 40px 0 80px; position: relative; }
+    .demo-title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
+    @media (min-width: 768px) { .demo-title { font-size: 40px; } }
+    .back-fixed { position: fixed; left: 24px; bottom: 24px; z-index: 20; }
+  </style>
 </head>
 <body>
-    <elevenlabs-convai agent-id="agent_5301k45cfhqdf7b8he93nmh8pzx6"></elevenlabs-convai>
-	<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+  <div class="gradient-bg" aria-hidden="true">
+    <svg viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" style="width:100%; height:100%; display:block;">
+      <defs>
+        <radialGradient id="gBg" cx="70%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#00f5d4" stop-opacity="1" />
+          <stop offset="35%" stop-color="#06d6a0" stop-opacity="0.9" />
+          <stop offset="60%" stop-color="#48cae4" stop-opacity="0.85" />
+          <stop offset="85%" stop-color="#0096c7" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#023e8a" stop-opacity="0.75" />
+        </radialGradient>
+        <filter id="blurBg"><feGaussianBlur stdDeviation="35" /></filter>
+      </defs>
+      <g filter="url(#blurBg)">
+        <path fill="url(#gBg)" d="M730 150c-90-65-204-75-312-61S221 142 147 223 19 400 42 511c22 108 119 190 218 246 95 53 199 84 305 78 105-6 191-58 216-137 28-88-24-177-40-268-16-92 15-196-11-280-9-27-26-52-50-70Z"/>
+      </g>
+    </svg>
+    <div class="gradient-fade"></div>
+  </div>
+
+  <main class="container">
+    <header>
+      <button class="hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+      <a href="#contact" class="cta-link" id="ctaLink">start a project</a>
+    </header>
+
+    <div class="overlay" id="overlay"></div>
+    <nav class="menu" id="menu">
+      <a href="#home" data-route>Home</a>
+      <a href="#work" data-route>Demo</a>
+    </nav>
+
+    <section id="home" class="page active">
+      <section class="hero">
+        <p class="eyebrow">Hi, we’re</p>
+        <h1 class="title">Testing Tiger Solutions.</h1>
+        <p class="sub">We are a tech agency focused on streamlining your business workflows.</p>
+        <div class="btn-row">
+          <a href="#contact" class="btn" id="letsTalk">Let’s talk</a>
+          <a href="#work" class="btn dark" data-route>See Demo</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="label">Great! But what do you do?</p>
+        <h2>we build <strong>ai agents</strong>.</h2>
+      </section>
+
+      <footer id="contact">
+        <div class="grid">
+          <div>
+            <h3 class="demo-title" style="font-weight:600">Start your project</h3>
+            <p style="color:#475569">Have an idea or a process that needs automation? We’ll help you scope, design, and ship an agent that saves hours every week.</p>
+          </div>
+          <form>
+            <input id="email" type="email" placeholder="you@company.com" />
+            <textarea id="msg" placeholder="Tell us about your workflow…"></textarea>
+            <button type="submit" class="btn dark">Send</button>
+          </form>
+        </div>
+        <p class="copyright">© <span id="year"></span> Testing Tiger Solutions</p>
+      </footer>
+    </section>
+
+    <section id="work" class="page demo-page">
+      <h1 class="demo-title">Live Agent Demo</h1>
+      <p style="color:#374151; max-width: 50ch;">Explore a live conversational agent embedded below. Ask it questions about your company and events.</p>
+      <div style="margin-top:24px">
+        <elevenlabs-convai agent-id="agent_5301k45cfhqdf7b8he93nmh8pzx6"></elevenlabs-convai>
+      </div>
+      <div class="back-fixed">
+        <a href="#home" class="btn" data-route>← Back to home</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+  <script>
+    const pages = { home: document.getElementById('home'), work: document.getElementById('work') };
+    const menu = document.getElementById('menu');
+    const overlay = document.getElementById('overlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const ctaLink = document.getElementById('ctaLink');
+    const letsTalk = document.getElementById('letsTalk');
+    const yearSpan = document.getElementById('year');
+    yearSpan.textContent = new Date().getFullYear();
+
+    function setRoute(hash) {
+      const r = (hash || '#home').replace('#','');
+      Object.values(pages).forEach(el => el.classList.remove('active'));
+      (pages[r] || pages.home).classList.add('active');
+      menu.classList.remove('open'); overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    setRoute(location.hash);
+    window.addEventListener('hashchange', () => setRoute(location.hash));
+
+    function openMenu(){ menu.classList.add('open'); overlay.classList.add('open'); menuBtn.setAttribute('aria-expanded','true'); }
+    function closeMenu(){ menu.classList.remove('open'); overlay.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); }
+    menuBtn.addEventListener('click', () => { if(menu.classList.contains('open')) closeMenu(); else openMenu(); });
+    overlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('[data-route]').forEach(a => {
+      a.addEventListener('click', e => { e.preventDefault(); const href=a.getAttribute('href')||'#home'; history.pushState(null,'',href); setRoute(href); });
+    });
+
+    function smoothScrollToContact(e){ e.preventDefault(); const el=document.getElementById('contact'); if(el) el.scrollIntoView({behavior:'smooth'}); }
+    ctaLink.addEventListener('click', smoothScrollToContact);
+    letsTalk.addEventListener('click', smoothScrollToContact);
+  </script>
 </body>
 </html>
