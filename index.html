@@ -22,7 +22,7 @@
     .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.2); z-index: 30; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
     .overlay.open { opacity: 1; pointer-events: auto; }
     .menu { position: fixed; left: 24px; top: 80px; z-index: 40; background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; transform: translateX(-12px); opacity: 0; transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s ease; }
-    .menu.open { transform: translateX(0); opacity: 1; }
+    .menu.open { position: absolute; transform: translateX(0); opacity: 1; }
     .menu a { display: block; padding: 12px 20px; color: inherit; text-decoration: none; }
     .menu a:hover { background: #fafafa; }
     main { position: relative; z-index: 1; }
